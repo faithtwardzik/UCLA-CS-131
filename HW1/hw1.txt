@@ -1,0 +1,31 @@
+(* Homework 1: Fixpoints and Grammar Filters 
+   Grade Received: 100%
+   If you found this file helpful, please consider reaching out to me:
+   Website: faithtwardzik.com
+   Instagram: @faithtwardzik
+*)
+
+Assessment of Hw1 Implementation
+
+For the first few functions, I used pattern-matching and basic Ocaml List manipulation.
+
+For filter_reachable, we needed a recursive function that would search and find all the reachable nonterminal symbols in the grammar. 
+So, I made the helper function get_reachable_symbols, which takes in a list of rules to search through and a list of reachable symbols 
+we've already found, then checks the head of the list, and if it's in our list of reachable symbols, take the right-hand side of the 
+rule, filter out all the (N) nonterminal symbols, and add them to the reachable symbols list. Then we recursively call with the rest 
+of the rules. 
+
+One problem I had with this function is that the rest_rules is constantly decreasing, which, when we call this function inside of 
+filter_reachable, caused computed_fixed_point to be non-monotonous, so the rules were empty after the second iteration. It only 
+recursed with a maxdepth of two levels. I fixed this by defining a function within get_reachable_symbols and adding a parameter 
+which contained an unaltered list of the rules. And at the end of the function call, rest_rules is replaced with the original list 
+of all the rules, so that it can be used in computed_fixed_point. 
+
+As for filter_reachable, it calls this function to get all of the reachable symbols, then filters out any rules (in order) in the 
+rules list that aren't reachable. 
+
+I considered using no helper functions, but the code in filter_reachable would have been convoluted. Also, I could have declared 
+inner get_reachable as a global helper, but it isn't used elsewhere, so I kept it local (though it makes the function more confusing). 
+There aren't any underlying problems that I see, though I could've used less conditionals and more pattern-matching for the warm-up 
+functions, when I wasn't used to pattern-matching. I based some parts of filter_reachable and get_reachable_symbols on the hint 
+pseudocode, but changed much of it. 
