@@ -1,0 +1,57 @@
+Homework 2: Naive Parsing of Context Free Grammars
+Grade Received: 99.5%
+If you found this file helpful, please consider reaching out to me:
+   Website: faithtwardzik.com
+   Instagram: @faithtwardzik
+
+After-Action Report on make_parser development from make_matcher:
+
+I realized that make_matcher in a way already found the parse tree, 
+so we just needed to recreate it with make_parser. 
+
+This meant taking the two helper functions we used to build make_matcher, 
+and tinkering with them a bit to return in the first function (expand_symbols, 
+in my case), a list of all of the rules traversed in the order in which they 
+were traversed. This list turned out to be a dfs tree, where the leftmost 
+nonterminals in each rule corresponded to the next rule in the list. 
+Essentially, the child of the leftmost nonterminal in a rule was the 
+next_rule in the list, and the child in the leftmost nonterminal in the 
+next_rule corresponded to the rule after next_rule in the list, and so on, 
+traversing the tree in a left to right fashion. 
+
+Because we now had this list of rules, we could go about recreating the parse tree. 
+
+I did this by using a helper function make_tree, which takes in a list of 
+rules, as well as a root of type parse tree (a Leaf or Node). It will return 
+a tuple, with the first element being the remaining rules that haven't been 
+"eaten up" as well as the parse tree. The reason we need the remaining 
+rules is because this function isn't only going to be used at the top level. 
+It will also be called on subtrees, where the remaining rules will not be 
+empty after constructing the parse tree for the subtree. 
+
+After this, we match the root, where if it's a Leaf, then the parse tree has 
+no children and we don't have to construct the subtrees for the children, so 
+we return the rules and root as the base case. If it's a Node, meaning it does 
+have children and subtrees, then we're going to take off the first rule from 
+the remaining list of rules (because remember, the next rule in the list 
+represents the children of the leftmost nonterminal), and then we call a 
+local blackbox helper handle_children, which will basically construct all 
+of the subtrees of the children and pass up a tuple with the remaining rules 
+and parse tree, which we return. 
+
+In our handle_children function, if the children are empty, this is the base 
+case and we return the remaining rules and the accumulator. Otherwise, we take 
+the first child and we want to construct a tree for it, so we call make_tree 
+with it and the rules. Then, because we still must deal with the rest of the 
+children, we call handle_children again, with the rest of the children and the 
+remaining rules, and we accumulate the sub parse trees by appending to acc. 
+
+Then in make_parser, we basically just get our list of rules by calling 
+our revised parser_expand_symbols, making sure that the acceptor only accepts 
+the empty suffix, and then we call make_tree and extract the parse tree! 
+
+I did some extensive testing of make_matcher and make_parser in my hw2test.ml 
+test cases, and I didn't find any for which my functions failed. I'm sure there 
+may be some edge cases that fail, but I couldn't find them. A definite weakness 
+is that I had to fully redefine expand_symbols and match_alternatives in order 
+to be used with match_parser, which is very inefficient. 
