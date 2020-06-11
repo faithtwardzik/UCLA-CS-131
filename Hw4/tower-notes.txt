@@ -1,3 +1,9 @@
+Homework 4: Tower Solver
+Grade Received: 94.4%
+If you found this file helpful, please consider reaching out to me:
+  Website: faithtwardzik.com
+  Instagram: @faithtwardzik
+
 Ambiguous Matrices:
 I ran ambiguous with an N value of 1, 2, and 3, but matrices of size
 1x1 to 3x3 did not have any ambiguous cases, where two of the same
