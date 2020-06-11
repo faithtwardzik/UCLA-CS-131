@@ -1,3 +1,8 @@
+% Homework 4: Towers Solver
+% Grade Received: 94.4%
+% If you found this file helpful, please consider reaching out to me:
+%   Website: faithtwardzik.com
+%   Instagram: @faithtwardzik
 
 %%%%%
 % plain_tower implementation
