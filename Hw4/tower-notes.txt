@@ -1,0 +1,51 @@
+Ambiguous Matrices:
+I ran ambiguous with an N value of 1, 2, and 3, but matrices of size
+1x1 to 3x3 did not have any ambiguous cases, where two of the same
+puzzles mapped to the same C solution matrix. However, when I ran
+ambiguous with an N value of 4 or 5 (or higher, though these take far
+too long to run), I did get ambiguous cases. Some of those are listed
+below:
+
+ambiguous(4, C, T1, T2).
+
+C = counts([3,2,2,1],[1,2,2,3],[4,2,2,1],[1,2,2,4])
+T1 = [[1,2,3,4],[3,1,4,2],[2,4,1,3],[4,3,2,1]]
+T2 = [[1,2,3,4],[3,4,1,2],[2,1,4,3],[4,3,2,1]] ? ;
+
+C = counts([3,2,2,1],[1,2,2,3],[4,2,2,1],[1,2,2,4])
+T1 = [[1,2,3,4],[3,4,1,2],[2,1,4,3],[4,3,2,1]]
+T2 = [[1,2,3,4],[3,1,4,2],[2,4,1,3],[4,3,2,1]] ? ;
+
+C = counts([3,3,1,2],[2,1,3,3],[3,3,1,2],[2,1,3,3])
+T1 = [[1,2,4,3],[2,1,3,4],[4,3,1,2],[3,4,2,1]]
+T2 = [[1,2,4,3],[2,3,1,4],[4,1,3,2],[3,4,2,1]] ?
+
+ambiguous(5, C, T1, T2).
+
+C = counts([3,4,3,2,1],[2,1,2,2,4],[5,3,1,3,2],[1,2,2,2,3])
+T1 = [[1,2,3,4,5],[2,1,4,5,3],[5,3,1,2,4],[3,4,5,1,2],[4,5,2,3,1]]
+T2 = [[1,2,3,4,5],[3,1,4,5,2],[5,3,1,2,4],[2,4,5,1,3],[4,5,2,3,1]] ? ;
+
+C = counts([3,3,3,2,1],[3,2,1,3,3],[5,3,1,2,3],[1,2,2,3,2])
+T1 = [[1,2,3,4,5],[2,1,4,5,3],[5,3,1,2,4],[4,5,2,3,1],[3,4,5,1,2]]
+T2 = [[1,2,3,4,5],[3,1,4,5,2],[5,3,1,2,4],[4,5,2,3,1],[2,4,5,1,3]] ? ;
+
+C = counts([3,3,3,2,1],[2,2,1,3,3],[5,3,1,2,2],[1,2,4,2,3])
+T1 = [[1,2,3,4,5],[2,1,4,5,3],[5,4,1,3,2],[3,5,2,1,4],[4,3,5,2,1]]
+T2 = [[1,2,3,4,5],[2,4,1,5,3],[5,1,4,3,2],[3,5,2,1,4],[4,3,5,2,1]] ?
+
+Speedup Ratio:
+I ran my speedup rule with the following test cases:
+plain_tower(5, T, counts([1,4,3,2,2],[4,1,2,2,2],[1,4,2,3,2],[3,1,2,2,2]))
+tower(5, T, counts([1,4,3,2,2],[4,1,2,2,2],[1,4,2,3,2],[3,1,2,2,2]))
+
+The speedup ratios I got on several consecutive runs, in which the time
+for plain_tower is divided by the time for tower, were as follows:
+R = 0.75302013422818792
+R = 0.75104311543810853
+R = 0.73082099596231498
+
+From these measurements, we can see that plain_tower actually runs a bit
+faster than tower, despite the spec enumerating that it might have worse
+performance than tower, which uses the finite domain solver. This could
+be due to the optimizations I made within plain_tower. 
