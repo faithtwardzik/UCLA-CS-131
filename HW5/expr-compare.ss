@@ -1,3 +1,9 @@
+; Homework 5: Scheme Code Difference Analyzer
+; Grade Received: 97%
+; If you found this file helpful, please consider reaching out to me:
+;	Website: faithtwardzik.com
+;	Instagram: @faithtwardzik
+
 #lang racket
 
 (define (lambda? x)
