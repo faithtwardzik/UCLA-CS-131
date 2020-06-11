@@ -9,7 +9,7 @@ import os
 
 # if putty aborts, must use netstat -tlnp, then kill -9 pid to close port
 
-API_Key = "AIzaSyDNaty0NHQjbELSxryf5CpDit5KVppAoZ8"
+API_Key = "YOUR_API_KEY"
 server_IDs = ["Hill", "Jaquez", "Smith", "Campbell", "Singleton"]
 server_tree = {
     "Hill": ["Jaquez", "Smith"],
