@@ -1,3 +1,8 @@
+# Project: Proxy Herd with Asyncio
+# If you found this file helpful, please consider reaching out to me:
+#   Website: faithtwardzik.com
+#   Instagram: @faithtwardzik
+
 import asyncio
 
 class Client:
