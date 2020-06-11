@@ -1,3 +1,10 @@
+/* Homework 3: Java Shared Memory Performance Races
+   Grade Received: 100%
+   If you found this file helpful, please consider reaching out to me:
+   Website: faithtwardzik.com
+   Instagram: @faithtwardzik
+*/
+
 import java.util.concurrent.atomic.AtomicLongArray;
 
 class AcmeSafeState implements State {
